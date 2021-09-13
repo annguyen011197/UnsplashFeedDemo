@@ -1,0 +1,14 @@
+/* 
+  GlobalText.strings
+  UnsplashFeed
+
+  Created by An Nguyen on 14/09/2021.
+  
+*/
+
+"title" = "Gallery";
+"search_photo" = "Search photos";
+"error" = "Error";
+"like" = "Like";
+"unlike" = "Unlike";
+"likes" = "%d likes";

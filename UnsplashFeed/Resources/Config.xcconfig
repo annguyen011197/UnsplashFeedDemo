@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  UnsplashFeed
+//
+//  Created by An Nguyen on 14/09/2021.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+APP_TOKEN = biNOnxpOaQnBI-wSraCaqtwZ6M7j6iLezhzgShW4oSs
+REFRESH_TOKEN = ZFknx6IY1FMkvJ-EVwj3VsO2Ht42bRam7agulv6uqSM
