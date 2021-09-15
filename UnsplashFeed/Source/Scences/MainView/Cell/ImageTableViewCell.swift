@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import SDWebImage
+
+protocol ImageTableCellDelegate: NSObject {
+    func onLikeTouchUp(_ data: ImageModel)
+}
 
 class ImageTableViewCell: UITableViewCell {
     @IBOutlet weak var mainImageView: UIImageView!
@@ -14,11 +19,18 @@ class ImageTableViewCell: UITableViewCell {
     @IBOutlet weak var likeLabel: UILabel!
     
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
+    private var data: ImageModel?
+    weak var delegate: ImageTableCellDelegate?
+    private var throttle: Throttler = Throttler(seconds: 0.3)
+    override func prepareForReuse() {
+        mainImageView.sd_cancelCurrentImageLoad()
+        updated = false
+        data = nil
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         uiSetup()
-//        sample()
     }
 
     private func uiSetup() {
@@ -32,29 +44,42 @@ class ImageTableViewCell: UITableViewCell {
         likeLabel.font = .systemFont(ofSize: 16)
         likeLabel.textColor = UIColor.lightGray
         
+        mainImageView.contentMode = .scaleToFill
+        
     }
     
-    func loadData(_ data: ImageModel) {
-        imageHeightConstraint.constant = 70
-        mainImageView.backgroundColor = .green
+    func loadData(_ data: ImageModel, completion: @escaping (CGFloat, CGFloat) -> Void) {
+        defer {
+            self.data = data
+        }
+        mainImageView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         
         userNameLabel.text = data.user?.username ?? ""
         likeButton.setTitle(data.likedByUser ? Strings.unlike.localize() : Strings.like.localize() , for: .normal)
         
         likeLabel.text = String(format: Strings.likes.localize(), data.likes)
-//        mainImageView.sd
-//        ImageLoader.shared.loadImage(url: data.urls?.full ?? "") { [weak mainImageView] result in
-//            if case Result.success(let image) = result {
-//                mainImageView?.image = image
-//            }
-//        }
+        guard self.data?.id != data.id else { return }
+        if let width = data.width, let height = data.height {
+            completion(CGFloat(width), CGFloat(height))
+        }
+        mainImageView.sd_setImage(with: URL(string: data.urls?.full ?? "")) { [weak mainImageView] image, _, _, _ in
+            guard let image = image else { return }
+            mainImageView?.image = image
+        }
     }
-    
-    private func sample() {
-        imageHeightConstraint.constant = 70
-        mainImageView.backgroundColor = .green
-        userNameLabel.text = "User name"
-        likeButton.setTitle("Like", for: .normal)
-        likeLabel.text = "28 likes"
+    private var updated = false
+    func updateHeightConstraint(_ width: CGFloat, _ height: CGFloat) {
+        guard !updated else { return }
+        updated = true
+        let imageWidth = mainImageView.frame.width
+        let imageHeight = CGFloat(height)*imageWidth/CGFloat(width)
+        imageHeightConstraint.constant = imageHeight
+    }
+
+    @IBAction func likeAction(_ sender: Any) {
+        guard let data = self.data else { return }
+        throttle.throttle { [weak self] in
+            self?.delegate?.onLikeTouchUp(data)
+        }
     }
 }

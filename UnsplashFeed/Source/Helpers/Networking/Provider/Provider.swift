@@ -10,7 +10,7 @@ import Foundation
 class NetworkProvider<T: TargetType> {
     func request(_ target: T, completion: @escaping (NetworkResult) -> Void) {
         guard let url = NetworkProvider.buildURLRequest(target) else { return }
-        print(url)
+        print("Request: \(url) \(Date().timeIntervalSince1970)")
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let err = error {
                 completion(.failed(err))

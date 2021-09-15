@@ -14,6 +14,7 @@ enum Strings: String  {
     case like = "like"
     case unlike = "unlike"
     case likes = "likes"
+    case cancel = "cancel"
     
     func localize() -> String { rawValue.localized() }
 }

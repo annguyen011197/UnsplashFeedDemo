@@ -9,7 +9,7 @@ import Foundation
 
 
 enum HTTPMethod {
-    case get, post
+    case get, post, delete
     
     func toString() -> String {
         switch self {
@@ -17,6 +17,8 @@ enum HTTPMethod {
             return "get"
         case .post:
             return "post"
+        case .delete:
+            return "delete"
         }
     }
 }

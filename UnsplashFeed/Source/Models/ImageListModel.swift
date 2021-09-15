@@ -17,9 +17,11 @@ struct ImageModel: Codable {
     var likes: Int
     var user: UserParam?
     var likedByUser: Bool
+    var width: Int?
+    var height: Int?
     
     enum CodingKeys: String, CodingKey {
-        case id, urls, likes, user, likedByUser = "liked_by_user"
+        case id, urls, likes, user, likedByUser = "liked_by_user", width, height
     }
     
     init(from decoder: Decoder) throws {
@@ -29,6 +31,8 @@ struct ImageModel: Codable {
         likes = try values.decodeIfPresent(Int.self, forKey: .likes) ?? 0
         user = try values.decodeIfPresent(UserParam.self, forKey: .user)
         likedByUser = try values.decodeIfPresent(Bool.self, forKey: .likedByUser) ?? false
+        width = try values.decodeIfPresent(Int.self, forKey: .width)
+        height = try values.decodeIfPresent(Int.self, forKey: .height)
     }
 }
 
