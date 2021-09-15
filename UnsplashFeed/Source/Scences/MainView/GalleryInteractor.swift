@@ -19,12 +19,18 @@ class GalleryInteractor: GalleryLogic {
     private lazy var worker: GalleryWorker = GalleryWorker()
     private var page: Int = 1
     private var searchCache: (query: String, page: Int) = ("", 1)
-    private var isLoading: Bool = false
+    private var progress: ShareLoading = ShareLoading()
+    
+    init() {
+        progress.loadingBlock = { [weak self] loading in
+            self?.presenter?.progress(isLoading: loading)
+        }
+    }
     func fetchImageRequest() {
-        guard !isLoading else { return }
-        isLoading = true
+        guard !progress.isLoading else { return }
+        progress.loading()
         worker.fetchImage(page: page) { [weak presenter, weak self] response in
-            self?.isLoading = false
+            self?.progress.finish()
             if !response.isError {
                 self?.page += 1
             }
@@ -53,7 +59,10 @@ class GalleryInteractor: GalleryLogic {
         } else {
             searchCache = (query, page)
         }
-        worker.searchImage(query: query, page: page) { [weak presenter] response in
+        progress.loading()
+        worker.searchImage(query: query, page: page) { [weak presenter, weak self] response, isCancelled in
+            self?.progress.finish()
+            guard !isCancelled else { return }
             presenter?.presentSearchResult(response: response, shouldReset: shouldReset)
         }
     }

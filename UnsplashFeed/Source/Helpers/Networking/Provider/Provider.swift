@@ -7,11 +7,13 @@
 
 import Foundation
 
+typealias NetworkRequest = URLSessionDataTask
 class NetworkProvider<T: TargetType> {
-    func request(_ target: T, completion: @escaping (NetworkResult) -> Void) {
-        guard let url = NetworkProvider.buildURLRequest(target) else { return }
+
+    func request(_ target: T, completion: @escaping (NetworkResult) -> Void) -> NetworkRequest? {
+        guard let url = NetworkProvider.buildURLRequest(target) else { return nil }
         print("Request: \(url) \(Date().timeIntervalSince1970)")
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let err = error {
                 completion(.failed(err))
                 return
@@ -23,7 +25,9 @@ class NetworkProvider<T: TargetType> {
             }
             
             completion(.success(data))
-        }.resume()
+        }
+        task.resume()
+        return task
     }
     
     private class func buildURLRequest(_ target: T) -> URLRequest? {

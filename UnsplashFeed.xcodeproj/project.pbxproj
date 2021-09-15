@@ -38,6 +38,7 @@
 		8E30205226F12FE300AD9CAA /* Throttle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E30205126F12FE300AD9CAA /* Throttle.swift */; };
 		8E30205426F25D8200AD9CAA /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E30205326F25D8200AD9CAA /* Request.swift */; };
 		8E30205826F2674B00AD9CAA /* SearchImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E30205726F2674B00AD9CAA /* SearchImageModel.swift */; };
+		8E30205A26F27C2300AD9CAA /* ShareLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E30205926F27C2300AD9CAA /* ShareLoading.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		8E30205126F12FE300AD9CAA /* Throttle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttle.swift; sourceTree = "<group>"; };
 		8E30205326F25D8200AD9CAA /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		8E30205726F2674B00AD9CAA /* SearchImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchImageModel.swift; sourceTree = "<group>"; };
+		8E30205926F27C2300AD9CAA /* ShareLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareLoading.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 				8E18263826EFD86F00A39B19 /* Extension.swift */,
 				8E18263A26EFD8F300A39B19 /* Strings.swift */,
 				8E30205126F12FE300AD9CAA /* Throttle.swift */,
+				8E30205926F27C2300AD9CAA /* ShareLoading.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E30205A26F27C2300AD9CAA /* ShareLoading.swift in Sources */,
 				8E30205426F25D8200AD9CAA /* Request.swift in Sources */,
 				8E30205026F12E3800AD9CAA /* LikeImageModel.swift in Sources */,
 				8E18263926EFD86F00A39B19 /* Extension.swift in Sources */,

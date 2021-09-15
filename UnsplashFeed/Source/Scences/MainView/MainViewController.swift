@@ -12,6 +12,7 @@ protocol GalleryDislay: NSObject {
     func displaySearcListImage(model: [ImageModel], shouldReset: Bool)
     func displayError(error: String)
     func likeImageRefresh(model: ImageModel)
+    func loadingIndicatorDisplay(isLoading: Bool)
 }
 
 class MainViewController: UIViewController {
@@ -19,6 +20,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     lazy var interactor = GalleryInteractor()
     lazy var presenter = GalleryPresenter()
@@ -49,6 +52,8 @@ class MainViewController: UIViewController {
     }
     
     private func uiSetup() {
+        loadingView.isHidden = true
+        
         titleLabel.text = Strings.title.localize()
         titleLabel.textAlignment = .center
         titleLabel.font = .boldSystemFont(ofSize: 30)
@@ -69,6 +74,10 @@ extension MainViewController: UISearchBarDelegate {
         interactor.searchImageRequest(query)
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        tableView.contentOffset = CGPoint(x: 0, y: 0)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             datasource.resetNormalMode()
@@ -82,6 +91,13 @@ extension MainViewController: UISearchBarDelegate {
 }
 
 extension MainViewController: GalleryDislay {
+    func loadingIndicatorDisplay(isLoading: Bool) {
+        UIView.animate(withDuration: 0.1) { [weak self] in
+            isLoading ? self?.indicator.startAnimating() : self?.indicator.stopAnimating()
+            self?.loadingView.isHidden = !isLoading
+        }
+    }
+    
     func displaySearcListImage(model: [ImageModel], shouldReset: Bool) {
         shouldReset ? datasource.loadNewSearchData(model) : datasource.loadNextSearchData(model)
     }

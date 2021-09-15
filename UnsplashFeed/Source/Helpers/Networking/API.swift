@@ -31,7 +31,7 @@ class API: NetworkService {
         }
     }
     
-    func searchImageList(query: String, page: Int, completion: @escaping (Result<SearchImageModel, Error>) -> Void) {
+    func searchImageList(query: String, page: Int, completion: @escaping (Result<SearchImageModel, Error>) -> Void) -> NetworkRequest? {
         provider.request(.searchImage(data: Request.SearchImage(query: query, page: page))) { result in
             completion(DataHandler().handlerResult(result))
         }

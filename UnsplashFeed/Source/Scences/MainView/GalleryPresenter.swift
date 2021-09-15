@@ -9,6 +9,11 @@ import Foundation
 
 class GalleryPresenter {
     weak var display: GalleryDislay?
+    func progress(isLoading: Bool) {
+        DispatchQueue.main.async { [weak display] in
+            display?.loadingIndicatorDisplay(isLoading: isLoading)
+        }
+    }
     
     func presentFetchResults(response: GalleryViewModel.ImageListResponse) {
         DispatchQueue.main.async { [weak display] in

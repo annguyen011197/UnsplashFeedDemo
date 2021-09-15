@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="UnsplashFeed" customModuleProvider="target">
             <connections>
+                <outlet property="indicator" destination="693-Vp-qY9" id="AXt-xA-6tt"/>
+                <outlet property="loadingView" destination="2Wv-Hh-o1N" id="9qD-L8-Puv"/>
                 <outlet property="searchBar" destination="Hhv-y5-cAz" id="XsR-t6-CPO"/>
                 <outlet property="tableView" destination="fi1-pG-W54" id="gPg-u0-bt6"/>
                 <outlet property="titleLabel" destination="wPj-2d-hMc" id="BTg-zj-XkV"/>
@@ -26,21 +28,37 @@
                     <rect key="frame" x="8" y="105" width="398" height="51"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fi1-pG-W54">
+                    <rect key="frame" x="0.0" y="164" width="414" height="698"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Wv-Hh-o1N">
+                    <rect key="frame" x="0.0" y="164" width="414" height="698"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="693-Vp-qY9">
+                            <rect key="frame" x="188.5" y="330.5" width="37" height="37"/>
+                            <color key="color" systemColor="labelColor"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="693-Vp-qY9" firstAttribute="centerX" secondItem="2Wv-Hh-o1N" secondAttribute="centerX" id="JiG-Rw-izT"/>
+                        <constraint firstItem="693-Vp-qY9" firstAttribute="centerY" secondItem="2Wv-Hh-o1N" secondAttribute="centerY" id="zKA-sb-BZZ"/>
+                    </constraints>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPj-2d-hMc">
                     <rect key="frame" x="52" y="64" width="310.5" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fi1-pG-W54">
-                    <rect key="frame" x="0.0" y="164" width="414" height="698"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="2Wv-Hh-o1N" firstAttribute="leading" secondItem="fi1-pG-W54" secondAttribute="leading" id="2Xl-PD-UFX"/>
                 <constraint firstItem="fi1-pG-W54" firstAttribute="top" secondItem="Hhv-y5-cAz" secondAttribute="bottom" constant="8" id="37e-ql-8u2"/>
+                <constraint firstItem="2Wv-Hh-o1N" firstAttribute="bottom" secondItem="fi1-pG-W54" secondAttribute="bottom" id="8qN-d9-y9q"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fi1-pG-W54" secondAttribute="trailing" id="9iH-QG-1nB"/>
                 <constraint firstItem="fi1-pG-W54" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="MUD-hW-g5y"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Hhv-y5-cAz" secondAttribute="trailing" constant="8" id="Mva-48-pMr"/>
@@ -48,13 +66,18 @@
                 <constraint firstItem="wPj-2d-hMc" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.75" id="aEv-0v-U28"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="fi1-pG-W54" secondAttribute="bottom" id="b9X-Go-WU4"/>
                 <constraint firstItem="Hhv-y5-cAz" firstAttribute="top" secondItem="wPj-2d-hMc" secondAttribute="bottom" constant="20" id="dQP-Pe-uI6"/>
+                <constraint firstItem="2Wv-Hh-o1N" firstAttribute="top" secondItem="fi1-pG-W54" secondAttribute="top" id="ekb-vG-EkC"/>
                 <constraint firstItem="wPj-2d-hMc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="oGc-HX-8bt"/>
                 <constraint firstItem="wPj-2d-hMc" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="qIA-Pt-hfs"/>
+                <constraint firstItem="2Wv-Hh-o1N" firstAttribute="trailing" secondItem="fi1-pG-W54" secondAttribute="trailing" id="vcA-4l-Iw1"/>
             </constraints>
             <point key="canvasLocation" x="132" y="121"/>
         </view>
     </objects>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
